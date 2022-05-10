@@ -25,7 +25,6 @@ public class NeoProtect extends Plugin {
 				}
 			}
 		}).start();
-		DirectConnectManager.get();
 	}
 	
 	@Override
