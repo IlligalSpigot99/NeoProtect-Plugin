@@ -60,7 +60,6 @@ public class DirectConnectManager {
             }
             in.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
 	}
 
