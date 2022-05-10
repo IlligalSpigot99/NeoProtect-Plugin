@@ -1,2 +1,1 @@
 # NeoProtect-Plugin
-# NeoProtect-Plugin
