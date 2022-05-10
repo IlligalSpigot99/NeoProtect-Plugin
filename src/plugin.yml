@@ -1,0 +1,6 @@
+main: de.illigalspigot.neoprotect.spigot.NeoProtect
+name: NeoProtect
+version: 1.0
+author: IlligalSpigot99
+api-version: 1.13
+load: STARTUP
