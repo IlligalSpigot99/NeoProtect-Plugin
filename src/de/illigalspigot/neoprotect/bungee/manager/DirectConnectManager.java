@@ -56,28 +56,4 @@ public class DirectConnectManager {
 		}
 	}
 
-	public static void get() {
-		StringBuilder stringBuilder = new StringBuilder();
-		try {
-			String string3;
-			String text = "https://api.neoprotect.net/v1/servers";
-			URL url = new URL(text);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
-			conn.setRequestProperty("Authorization", "Bearer " + NeoProtect.getInstance().getFileManagement().getAPIKey());
-			conn.setRequestMethod("GET");
-			conn.setUseCaches(false);
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-			while ((string3 = in.readLine()) != null) {
-				stringBuilder.append(string3);
-			}
-			System.out.println(stringBuilder.toString());
-			in.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }
