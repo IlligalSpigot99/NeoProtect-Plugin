@@ -43,8 +43,9 @@ public class DirectConnectManager {
             String string3;
             String text = "https://api.neoprotect.net/v1/public/servers";
             URL url = new URL(text);
-            URLConnection conn = url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
+            if(conn.getResponseCode() == 502) return;
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             while ((string3 = in.readLine()) != null) {
                 stringBuilder.append(string3);
