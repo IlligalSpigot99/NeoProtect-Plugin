@@ -19,6 +19,7 @@ import org.json.simple.JSONValue;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import de.illigalspigot.neoprotect.cpscounter.CPSCounter;
 import de.illigalspigot.neoprotect.spigot.NeoProtect;
 import de.illigalspigot.neoprotect.vulnerability.Type;
 import de.illigalspigot.neoprotect.vulnerability.Vulnerability;
@@ -32,8 +33,11 @@ public class DirectConnectManager {
 		if(ips.contains(ipMinimized)) {
 			return true;
 		}
-
 		Vulnerability.addVulnerability(Type.DIRECT_IP, NeoProtect.getInstance().getFileManagement());
+		CPSCounter.add();
+		if(CPSCounter.get() >= 25) {
+			Vulnerability.addVulnerability(Type.DIRECT_ATTACK, NeoProtect.getInstance().getFileManagement());
+		}
 		return false;
 	}
 	
