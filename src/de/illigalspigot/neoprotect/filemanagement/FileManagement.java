@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import net.md_5.bungee.conf.Configuration;
 import net.md_5.bungee.conf.YamlConfig;
+import net.md_5.bungee.config.ConfigurationProvider;
 
 public class FileManagement {
 	
@@ -43,15 +44,16 @@ public class FileManagement {
 		if(!file.exists()) {
 			try {
 				file.createNewFile();
-				net.md_5.bungee.config.Configuration yml = net.md_5.bungee.config.YamlConfiguration.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(file);
+				net.md_5.bungee.config.Configuration yml = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(file);
 				yml.set("API-Key", "YOUR APIKEY");
 				yml.set("ServerID", "Server ID");
+				ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).save(yml, file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else {
 			try {
-				net.md_5.bungee.config.Configuration yml = net.md_5.bungee.config.YamlConfiguration.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(file);
+				net.md_5.bungee.config.Configuration yml = ConfigurationProvider.getProvider(net.md_5.bungee.config.YamlConfiguration.class).load(file);
 				apiKey = yml.getString("API-Key");
 				serverID = yml.getString("ServerID");
 			} catch (IOException e) {
