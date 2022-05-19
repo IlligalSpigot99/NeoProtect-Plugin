@@ -1,4 +1,3 @@
-
 package de.illigalspigot.neoprotect.bungee.manager;
 
 import java.io.BufferedReader;

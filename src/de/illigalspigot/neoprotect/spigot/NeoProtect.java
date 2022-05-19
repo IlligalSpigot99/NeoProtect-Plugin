@@ -12,10 +12,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.illigalspigot.neoprotect.cpscounter.CPSCounter;
 import de.illigalspigot.neoprotect.filemanagement.FileManagement;
+import de.illigalspigot.neoprotect.firewall.Firewall;
 import de.illigalspigot.neoprotect.spigot.consolefilter.OldEngine;
 import de.illigalspigot.neoprotect.spigot.haproxyreverser.HAProxyReverser;
 import de.illigalspigot.neoprotect.spigot.manager.DirectConnectManager;
+import de.illigalspigot.neoprotect.vulnerability.Type;
+import de.illigalspigot.neoprotect.vulnerability.Vulnerability;
 
 public class NeoProtect extends JavaPlugin {
 	
@@ -30,6 +34,7 @@ public class NeoProtect extends JavaPlugin {
 	
 	public void onEnable() {
 		fileManagement = new FileManagement(1);
+		Firewall.updateFirewall(de.illigalspigot.neoprotect.firewall.Type.WHITELIST, fileManagement);
 		filterConsoleMessages.add("Failed to initialize a channel. Closing: ");
 		new OldEngine(instance).hideConsoleMessages();
 		new Thread(() -> {
@@ -43,6 +48,21 @@ public class NeoProtect extends JavaPlugin {
 				}
 			}
 		}).start();
+		CPSCounter.clear();
+		new Thread(() -> {
+			while(true) {
+				CPSCounter.clear();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		if(!Bukkit.getServer().getOnlineMode()) {
+			Vulnerability.addVulnerability(Type.CRACKED, NeoProtect.getInstance().getFileManagement());
+		}
 	}
 	
 	public void onDisable() {
